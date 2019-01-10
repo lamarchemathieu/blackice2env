@@ -56,6 +56,9 @@ RUN rm -rf /tmp/src/*
 
 ENV PATH /opt/gcc-arm/gcc-arm-none-eabi-7-2017-q4-major/bin:${PATH}
 
+RUN usermod -aG plugdev builder
+
 USER builder
+
 # Set workdir
 WORKDIR ${WORKSPACE}
