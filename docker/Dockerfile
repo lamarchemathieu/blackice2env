@@ -21,7 +21,7 @@ RUN apt-get update \
 	    libreadline-dev tcl-dev \
 	    libffi-dev graphviz xdot \
 	    pkg-config libftdi-dev vim\
-	    htop screen iverilog dfu-util gtkwave \
+	    htop screen iverilog gtkwave libusb-1.0-0-dev automake\
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r builder \
@@ -48,6 +48,9 @@ RUN cd /tmp/src/yosys && make install
 RUN mkdir -p /opt/gcc-arm
 RUN cd /tmp/src/ && curl https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 > gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
 RUN cd /opt/gcc-arm && bunzip2 -c /tmp/src/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 | tar xf -
+
+RUN cd /tmp/src && git clone https://github.com/lamarchemathieu/dfu-util.git
+RUN cd /tmp/src/dfu-util && ./autogen.sh && ./configure && make -j`nproc` && make install
 
 RUN rm -rf /tmp/src/*
 
