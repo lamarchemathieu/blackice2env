@@ -21,7 +21,8 @@ RUN apt-get update \
 	    libreadline-dev tcl-dev \
 	    libffi-dev graphviz xdot \
 	    pkg-config libftdi-dev vim\
-	    htop screen iverilog gtkwave libusb-1.0-0-dev automake\
+	    htop screen iverilog gtkwave libusb-1.0-0-dev automake \
+	    qt5-default libqt5opengl5 libqt5opengl5-dev libboost-all-dev python3-dev cmake \
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r builder \
@@ -51,6 +52,9 @@ RUN cd /opt/gcc-arm && bunzip2 -c /tmp/src/gcc-arm-none-eabi-7-2017-q4-major-lin
 
 RUN cd /tmp/src && git clone https://github.com/lamarchemathieu/dfu-util.git
 RUN cd /tmp/src/dfu-util && ./autogen.sh && ./configure && make -j`nproc` && make install
+
+RUN cd /tmp/src && git clone https://github.com/YosysHQ/nextpnr.git
+RUN cd /tmp/src/nextpnr && cmake -DARCH=ice40 . && make -j`nproc` && make install
 
 RUN rm -rf /tmp/src/*
 
