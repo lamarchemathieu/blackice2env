@@ -50,7 +50,7 @@ RUN mkdir -p /opt/gcc-arm
 RUN cd /tmp/src/ && curl https://armkeil.blob.core.windows.net/developer/Files/downloads/gnu-rm/7-2017q4/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 > gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2
 RUN cd /opt/gcc-arm && bunzip2 -c /tmp/src/gcc-arm-none-eabi-7-2017-q4-major-linux.tar.bz2 | tar xf -
 
-RUN cd /tmp/src && git clone https://github.com/lamarchemathieu/dfu-util.git
+RUN cd /tmp/src && git clone https://github.com/mystorm-org/dfu-util.git
 RUN cd /tmp/src/dfu-util && ./autogen.sh && ./configure && make -j`nproc` && make install
 
 RUN cd /tmp/src && git clone https://github.com/YosysHQ/nextpnr.git
