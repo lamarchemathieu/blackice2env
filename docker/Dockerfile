@@ -4,7 +4,7 @@ MAINTAINER mlamarche
 ENV OPT /opt
 ENV WORKSPACE ${OPT}/workspace
 
-RUN apt-get update \
+RUN apt-get update && apt-get upgrade -y \
     && apt-get install --assume-yes --no-install-recommends \
     	apt-utils u-boot-tools sudo kmod \
 	    gawk make git subversion arduino-core curl cpio rsync bc clang python\
@@ -42,7 +42,7 @@ RUN git clone https://github.com/cseed/arachne-pnr.git /tmp/src/arachne-pnr
 RUN cd /tmp/src/arachne-pnr && make -j`nproc`
 RUN cd /tmp/src/arachne-pnr && make install
 
-RUN git clone -b yosys-0.8 https://github.com/cliffordwolf/yosys.git /tmp/src/yosys
+RUN git clone https://github.com/cliffordwolf/yosys.git /tmp/src/yosys
 RUN cd /tmp/src/yosys && make -j`nproc`
 RUN cd /tmp/src/yosys && make install
 
